@@ -3,7 +3,8 @@ import { redirect } from '@sveltejs/kit';
 import { auth, user } from '$lib/firebase';
 
 export const load = (async () => {
-    if (user) {
-        throw redirect(307, '/');
-    }
+    // console.log(user);
+    // if (user) {
+    //     throw redirect(307, '/');
+    // }
 }) satisfies PageServerLoad;
