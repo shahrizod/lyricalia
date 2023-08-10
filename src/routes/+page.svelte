@@ -20,17 +20,15 @@
 	let search: string = '';
 	let songs = [] as any
 	
-	const dispatch = createEventDispatcher();
+	// const dispatch = createEventDispatcher();
 
-	let getFakeData = async() => {
-		songs = testData
-	}
+	// let getFakeData = async() => {
+	// 	songs = testData
+	// }
 
 	const searchLyrics = (lyrics:string) => {
 		isSearchMade = true;
-		dispatch('searchmade');
-		// getData(lyrics);
-		getFakeData();
+		// dispatch('searchmade');
 		(document.activeElement as HTMLInputElement | null)?.blur();
 	}
 
@@ -47,7 +45,9 @@
 		});
   }
 
-	export let data: PageData;
+	let formLoading = false;
+	export let form;
+	// export let data: PageData;
 </script>
 
   <div class="flex flex-col items-center {isSearchMade ? 'mt-8' : 'mt-32'} transition-spacing duration-300">
@@ -55,7 +55,14 @@
 			<h1 class="text-7xl font-bold">Lyricalia</h1>
 			<p class="py-6">Use lyrics to find and save all your favorite songs</p>
 		</div>
-		<form method="POST" use:enhance class="w-full max-w-lg relative mt-2 flex flex-row">
+		<form method="POST" use:enhance={() => {
+			formLoading = true;
+			return async ({ update }) => {
+					formLoading = false;
+					update();
+			};
+		}}
+			class="w-full max-w-lg relative mt-2 flex flex-row">
 			<input 
 				name="searchTerm"
 				bind:value={search} 
@@ -72,19 +79,26 @@
 		</form>
 	</div>	
 
-	<div class="overflow-auto mx-48 mt-8" style="max-height: 59vh">
-    {#each songs as song, i (song)}
-      <div class="card card-side justify-center bg-base-100 shadow-xl m-2" in:slide={{delay: 300 + i * 50, duration: 300}}>
-        <figure class="w-20 m-2 pl-2"> <img src={song.result.header_image_url} alt="Album Cover"/> </figure>
-        <div class="card-body">
-          <h2 class="card-title">{song.result.title}</h2>
-          <p>{song.result.artist_names}</p>
-        </div>
-				{#if $user && !$userData?.songs.some(({ url }) => url === song.result.url)}
-					<div class="mr-4 flex items-center">
-						<button class="btn btn-primary" on:click={() => addSong(song.result)}>+</button>
+<div class="overflow-auto mx-48 mt-8" style="max-height: 59vh">
+	{#if form?.songs && !formLoading}
+			{#each form.songs as song, i (song)}
+				<div class="card card-side justify-center bg-base-100 shadow-xl m-2" in:slide={{delay: 300 + i * 50, duration: 300}}>
+					<figure class="w-20 m-2 pl-2"> <img src={song.result.header_image_url} alt="Album Cover"/> </figure>
+					<div class="card-body">
+						<h2 class="card-title">{song.result.title}</h2>
+						<p>{song.result.artist_names}</p>
 					</div>
-				{/if}
-      </div>
-    {/each}			
-  </div>
+					{#if $user && !$userData?.songs.some(({ url }) => url === song.result.url)}
+						<div class="mr-4 flex items-center">
+							<button class="btn btn-primary" on:click={() => addSong(song.result)}>+</button>
+						</div>
+					{/if}
+				</div>
+			{/each}			
+	{:else if formLoading}
+		<div class="flex justify-center">
+			<span class="loading loading-spinner loading-lg"></span>
+		</div>
+	{/if}
+</div>
+

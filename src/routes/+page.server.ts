@@ -1,5 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { GENIUS_API_KEY } from '$env/static/private';
+import { apiSongs } from '$lib/store';
 
 let getData = async(searchTerm:any) => {
     const url = `https://genius-song-lyrics1.p.rapidapi.com/search/?q=${searchTerm}&per_page=10&page=1`;
@@ -20,7 +21,6 @@ let getData = async(searchTerm:any) => {
         console.error(error);
         return null;
     }
-
 }
 
 export const load = (async () => {
@@ -30,8 +30,7 @@ export const load = (async () => {
 export const actions = {
     default: async({request, params}) => {
         const data = await request.formData();
-        console.log(data.get('searchTerm'));
         const songs = await getData(data.get('searchTerm'));
-        console.log({songs});
+        return {songs}
     }
 }

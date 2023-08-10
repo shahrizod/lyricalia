@@ -27,10 +27,7 @@
 </script>
 
 <div class="flex flex-grow items-center justify-center text-white">
-  {#if $user}
-    {#await goto("/")}{/await}
-  {:else}
-	<div class="max-w-md w-full bg-base-200 p-6 rounded-xl shadow-lg">
+  <div class="max-w-md w-full bg-base-200 p-6 rounded-xl shadow-lg">
     <h2 class="text-center text-3xl font-bold mb-4">Log In to Lyricalia</h2>
     <form on:submit|preventDefault={handleLogin}>
       {#if errorMessage}
@@ -69,5 +66,4 @@
       </div>
     </form>
   </div>
-  {/if}
 </div>
