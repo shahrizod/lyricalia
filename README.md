@@ -1,22 +1,33 @@
-# create-svelte
+# Lyricalia
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Overview
 
-## Creating a project
+This is a web app that allows users to search for lyrics and discover songs they belong to. It features user authentication, allowing users to register, log in, and save songs to their profile.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- **Lyrics Search:** Find songs based on lyrics or keywords.
+- **Song Discovery:** View detailed song information and lyrics with the Genius API.
+- **User Authentication:** Secure registration and login using Firebase.
+- **Profile Management:** Save and manage favorite songs.
+- **Responsive Design:** Built with SvelteKit and TailwindCSS for a responsive experience.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Technologies
 
-## Developing
+- [Svelte](https://svelte.dev/)
+- [SvelteKit](https://kit.svelte.dev/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Firebase](https://firebase.google.com/)
+- [DaisyUI](https://daisyui.com/)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Setup
+
+Clone the Repository:
+   ```bash
+   git clone https://github.com/shahrizod/lyricalia.git
+   cd your-repo
+  ```
+Once you've cloned the project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
 npm run dev
@@ -24,15 +35,4 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+You may also need to setup appropriate .env files
